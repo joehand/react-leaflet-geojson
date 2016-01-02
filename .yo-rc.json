@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "georeactProject",
+    "style": "scss",
+    "postcss": true
+  }
+}

@@ -1,0 +1,12 @@
+/* Base Application Styles */
+body {
+  color: #fff;
+  background: #222;
+}
+
+.map-component {
+    border: 1px dashed #f00;
+    height: 400px;
+    width: 80%;
+    margin: 0 auto;
+}

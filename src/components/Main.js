@@ -14,6 +14,12 @@ class AppComponent extends React.Component {
     State.on('update', () => this.forceUpdate() );
   }
 
+  filterData(event) {
+    event.preventDefault();
+    State.trigger('data:regexFilter',event.target.value);
+    State.trigger('map:setBounds');
+  }
+
   render() {
     let state = State.get();
 
@@ -23,13 +29,22 @@ class AppComponent extends React.Component {
     const mapProps = state.mapProps || state.mapDefaults;
 
     console.log(state);
+
     return (
       <div className='index'>
         <h1>{state.pageTitle}</h1>
         <h3>
         </h3>
+        <div>
+          <input
+            type="text"
+            className="form-control"
+            onChange={ this.filterData.bind(this) }
+            placeholder="Search" />
+        </div>
+
         <MapComponent
-          data={state.dataLayers}
+          data={state.activeData.filtered}
           mapProps={mapProps}
           mapTiles={state.mapTiles}
         />

@@ -77,7 +77,9 @@
     "react-dom": "^0.14.0",
     "react-leaflet": "^0.10.0",
     "superagent": "^1.6.1",
+    "topojson": "^1.6.19",
     "turf-extent": "^1.0.4",
+    "turf-filter": "^1.0.1",
     "turf-sample": "^1.0.1"
   }
 }

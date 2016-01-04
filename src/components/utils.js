@@ -5,25 +5,27 @@ import turfExtent from 'turf-extent';
 import geojsonMerge from 'geojson-merge';
 
 
-const Utils =  {
-  _mergeAllDataLayers(geojsonLayers) {
-    const layers = values(geojsonLayers);
-    return geojsonMerge(layers);
-  },
-
-  getBoundsForFeature(geoJson) {
-    const extent = turfExtent(geoJson);
-    return [
-      [extent[1], extent[0]],
-      [extent[3], extent[2]]
-    ];
-  },
-
-  getAllBounds(geojsonLayers) {
-    // could use this too: https://github.com/mapbox/geojson-extent
-    const geojson = Utils._mergeAllDataLayers(geojsonLayers);
-    return Utils.getBoundsForFeature(geojson);
-  }
+function mergeAllDataLayers(geojsonLayers) {
+  const layers = values(geojsonLayers);
+  return geojsonMerge(layers);
 }
 
-module.exports = Utils;
+function getBoundsForFeature(geoJson) {
+  const extent = turfExtent(geoJson);
+  return [
+    [extent[1], extent[0]],
+    [extent[3], extent[2]]
+  ];
+}
+
+function getAllBounds(geojsonLayers) {
+  // could use this too: https://github.com/mapbox/geojson-extent
+  const geojson = Utils.mergeAllDataLayers(geojsonLayers);
+  return Utils.getBoundsForFeature(geojson);
+}
+
+module.exports = {
+  mergeAllDataLayers,
+  getBoundsForFeature,
+  getAllBounds
+}

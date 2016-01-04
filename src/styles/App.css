@@ -4,6 +4,21 @@ body {
   background: #222;
 }
 
+html, body, #app {
+    height: 100%;
+    width: 100%;
+}
 .index {
+    height: 100%;
+    width: 100%;
+}
 
+.form-control {
+    right:200px;
+    width:200px;
+    padding:5px;
+    top:15px;
+    position: absolute;
+    margin:10px;
+    color:black;
 }

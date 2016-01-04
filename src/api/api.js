@@ -14,27 +14,13 @@ import request from 'superagent';
 //     }, timeout);
 // };
 
-
-exports.getDataUrls = function (urls, cb) {
-    let url = urls[0];
-    request
-        .get(url)
-        .accept('json')
-        .end(function(err, res) {
-          if(res.text) {
-            cb(JSON.parse(res.text))
-          }
-        })
-};
-
-
 exports.getDataUrl = function (url, cb) {
-    request
-        .get(url)
-        .accept('json')
-        .end(function(err, res) {
-          if(res.text) {
-            cb(JSON.parse(res.text))
-          }
-        })
+  request
+    .get(url)
+    .accept('json')
+    .end(function(err, res) {
+      if(res.text) {
+        cb(JSON.parse(res.text))
+      }
+    })
 };

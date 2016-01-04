@@ -20,24 +20,23 @@ class MapComponent extends React.Component {
   }
 
   componentWillMount() {
-    let state = State.get()
-    let listener = state.dataLayers.getListener()
+    // let listener = this.props.data.getListener()
 
-    listener.on('update', function( newState ){
-      State.trigger('map:setBounds');
-    });
+    // listener.on('update', function( newState ){
+    //   State.trigger('map:setBounds');
+    // });
   }
 
   render() {
     const borderLayerStyle = {
-        color: 'rgb(56,158,70)',
-        opacity: 1,
-        weight: 1,
-        fillColor: 'rgb(86,221,84)',
-        fillOpacity: 0.4,
+      color: 'rgb(56,158,70)',
+      opacity: 1,
+      weight: 1,
+      fillColor: 'rgb(86,221,84)',
+      fillOpacity: 0.4,
     };
 
-    const dataLayers = this.props.data;
+    const activeData = this.props.data;
     const onEachFeature = this.onEachFeature;
 
     return (
@@ -47,12 +46,11 @@ class MapComponent extends React.Component {
         <TileLayer
           {...this.props.mapTiles}
         />
-        {Object.keys(dataLayers).map(function(key) {
-          return <GeoJsonUpdatable
-                    key={key} data={dataLayers[key]}
-                    onEachFeature={(feature, layer) => onEachFeature(feature, layer)}
-                  />
-         })}
+        <GeoJsonUpdatable
+            data={activeData}
+            style={borderLayerStyle}
+            onEachFeature={(feature, layer) => onEachFeature(feature, layer)}
+          />
       </Map>
     );
   }
@@ -60,7 +58,6 @@ class MapComponent extends React.Component {
 
 MapComponent.displayName = 'MapMapComponent';
 
-// Uncomment properties you need
 // MapComponent.propTypes = {};
 // MapComponent.defaultProps = {};
 

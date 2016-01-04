@@ -9,7 +9,7 @@ import topojson from 'topojson';
 State
   .on('data:fetch', function(){
     const state = State.get();
-    const url = state.dataUrl;
+    const url = state.dataInfo.url;
     api.getDataUrl(url, function(data) {
       // TODO support geojson + topojson
 
@@ -48,21 +48,22 @@ State
     const data = state.activeData.default;
 
     const regex = new RegExp(val, 'i');
-    const filteredData = data.features.filter(function(datum) {
+    const filteredData = data.features.filter(function(feature) {
 
       //TODO: Let's not do this...
-      let name = '';
-      if('name' in datum.properties) {
-        return name = datum.properties.name;
+      let searchText = ''; // Make sure it is string by adding
+      if ('filterProp' in State.get().dataInfo) {
+        let propName = State.get().dataInfo.filterProp;
+        searchText += feature.properties[propName];
       }
-      else if ('title' in datum.properties) {
-        return name = datum.properties.title;
+      else if ('title' in feature.properties) {
+        searchText += feature.properties.title;
       }
       else {
-            const obj = datum.properties;
-            name = obj[Object.keys(obj)[0]];
+        const obj = feature.properties;
+        searchText += obj[Object.keys(obj)[0]];
       }
-        return (name.search(regex) > -1);
+      return (searchText.search(regex) > -1);
     });
 
     let filtered = {
@@ -70,6 +71,9 @@ State
         type:data.type
     }
     state.activeData.set('filtered', filtered);
+    if (!filtered.features.length) {
+      //TODO: Deal with no results
+    }
   })
 ;
 

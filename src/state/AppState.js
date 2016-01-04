@@ -6,9 +6,11 @@ var state =  {
   status: 'ready',
   route: '/',
   pageTitle: 'GeoJson React Leaflet Map',
-  dataUrl : 'https://gist.githubusercontent.com/joehand/f12cd626e2a54a146c8c/raw/46d6aa619a4817d9047f886490c4368800d32eeb/ghana.topo.json',
-  dataTitleProp: 'example',
-  dataFilterProp: 'example',
+  dataInfo: {
+    url: 'https://gist.githubusercontent.com/joehand/f12cd626e2a54a146c8c/raw/46d6aa619a4817d9047f886490c4368800d32eeb/ghana.topo.json',
+    titleProp: 'section_B/B7_Settlement_Name_Community',
+    filterProp: 'section_B/B7_Settlement_Name_Community',
+  },
   mapDefaults: {
     center:[0,0],
     zoom:10,

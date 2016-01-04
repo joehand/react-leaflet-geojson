@@ -8,6 +8,8 @@ import geojsonExtent from 'geojson-extent';
 State
   .on('map:setBounds', function(){
     const data = State.get().activeData.filtered;
+    if (!data.features.length)
+      return
     const extent = geojsonExtent(data);
     const bounds = [
               [extent[1], extent[0]],
@@ -30,23 +32,23 @@ State
     });
 
     //TODO: Let's not do this...
-    let name = '';
-    if ('name' in feature.properties) {
-      name = feature.properties.name;
+    let title = '';
+    if ('titleProp' in State.get().dataInfo) {
+      let propName = State.get().dataInfo.titleProp;
+      title = feature.properties[propName];
+    }
+    else if ('name' in feature.properties) {
+      title = feature.properties.title;
     }
     else if ('title' in feature.properties) {
-      name = feature.properties.title;
-    }
-    else {
-      const obj = feature.properties;
-      name = obj[Object.keys(obj)[0]];
+      title = feature.properties.title;
     }
 
-    let route = feature.id || name;
+    let route = feature.id || title;
 
     State.get().set({
       route : route,
-      pageTitle : name,
+      pageTitle : title,
       currentFeature : feature
     });
   })

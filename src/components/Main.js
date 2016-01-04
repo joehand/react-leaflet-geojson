@@ -1,5 +1,5 @@
 require('normalize.css');
-require('styles/App.css');
+require('styles/App.scss');
 
 import React from 'react';
 
@@ -32,15 +32,17 @@ class AppComponent extends React.Component {
 
     return (
       <div className='index'>
-        <h1>{state.pageTitle}</h1>
-        <h3>
-        </h3>
-        <div>
-          <input
-            type="text"
-            className="form-control"
-            onChange={ this.filterData.bind(this) }
-            placeholder="Search" />
+        <div className='flex-box'>
+          <div className='row'>
+            <div className='flex-item'>
+              <h1>{state.pageTitle}</h1>
+              <input
+                type="text"
+                className="form-control"
+                onChange={ this.filterData.bind(this) }
+                placeholder="Search" />
+            </div>
+          </div>
         </div>
 
         <MapComponent

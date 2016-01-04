@@ -47,32 +47,46 @@ State
     const state = State.get()
     const data = state.activeData.default;
 
-    const regex = new RegExp(val, 'i');
-    const filteredData = data.features.filter(function(feature) {
+    if (val) {
+      const regex = new RegExp(val, 'i');
+      const filteredData = data.features.filter(function(feature) {
 
-      //TODO: Let's not do this...
-      let searchText = ''; // Make sure it is string by adding
-      if ('filterProp' in State.get().dataInfo) {
-        let propName = State.get().dataInfo.filterProp;
-        searchText += feature.properties[propName];
-      }
-      else if ('title' in feature.properties) {
-        searchText += feature.properties.title;
-      }
-      else {
-        const obj = feature.properties;
-        searchText += obj[Object.keys(obj)[0]];
-      }
-      return (searchText.search(regex) > -1);
-    });
+        //TODO: Let's not do this...
+        let searchText = ''; // Make sure it is string by adding
+        if ('filterProp' in State.get().dataInfo) {
+          let propName = State.get().dataInfo.filterProp;
+          searchText += feature.properties[propName];
+        }
+        else if ('title' in feature.properties) {
+          searchText += feature.properties.title;
+        }
+        else {
+          const obj = feature.properties;
+          searchText += obj[Object.keys(obj)[0]];
+        }
+        return (searchText.search(regex) > -1);
+      });
 
-    let filtered = {
-        features: filteredData,
-        type:data.type
+      let filtered = {
+          features: filteredData,
+          type:data.type
+      }
+
+      if (!filteredData.length) {
+        //TODO: Deal with no results
+        state.set('pageTitle', 'No Results');
+      }
+      else if (filteredData.length == 1) {
+        State.trigger('clicked:feature', filteredData[0])
+      } else {
+        const pageTitle = filteredData.length + ' Search Results';
+        state.set('pageTitle', pageTitle);
+      }
+      state.activeData.set('filtered', filtered);
     }
-    state.activeData.set('filtered', filtered);
-    if (!filtered.features.length) {
-      //TODO: Deal with no results
+    else {
+      state.set('pageTitle', 'Search...');
+      state.activeData.set('filtered', data);
     }
   })
 ;

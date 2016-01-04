@@ -2,23 +2,37 @@ require('normalize.css');
 require('styles/App.css');
 
 import React from 'react';
-import { Map, TileLayer, CircleMarker } from 'react-leaflet';
+
+import MapComponent from 'components/map/MapComponent'
+import State from '../state/AppState';
 
 class AppComponent extends React.Component {
+
+  componentDidMount () {
+    // Everytime that the state is updated the app will re-render.
+    // A real data driven app.
+    State.on('update', () => this.forceUpdate() );
+  }
+
   render() {
+    let state = State.get();
+
+    if (state.status == 'loading')
+      return <div>Loading...</div>;
+
+    const mapProps = state.mapProps || state.mapDefaults;
+
+    console.log(state);
     return (
-      <div className="index">
-        <Map id='map' ref='map'
-          className="map-component"
-          center={[30.267153, -97.743061]}
-          zoom={12} minZoom={5} maxZoom={19}>
-          <TileLayer
-            minZoom={5} maxZoom={19}
-            url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-            attribution='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-          />
-          <CircleMarker center={[30.267153, -97.743061]}/>
-        </Map>
+      <div className='index'>
+        <h1>{state.pageTitle}</h1>
+        <h3>
+        </h3>
+        <MapComponent
+          data={state.dataLayers}
+          mapProps={mapProps}
+          mapTiles={state.mapTiles}
+        />
       </div>
     );
   }

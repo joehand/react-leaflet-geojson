@@ -12,9 +12,17 @@ import Main from 'components/Main';
 
 describe('MainComponent', () => {
     let MainComponent;
+    let State;
 
     beforeEach(() => {
       MainComponent = createComponent(Main);
+      State = require('state/State')
+    });
+
+    it('should have show loading for loading status', () => {
+      // State.set({status:'loading'})
+      // console.log(MainComponent)
+      expect(MainComponent.props.className).to.equal('fail');
     });
 
     it('should have its component name as default className', () => {

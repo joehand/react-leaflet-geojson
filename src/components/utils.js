@@ -20,8 +20,8 @@ function getBoundsForFeature(geoJson) {
 
 function getAllBounds(geojsonLayers) {
   // could use this too: https://github.com/mapbox/geojson-extent
-  const geojson = Utils.mergeAllDataLayers(geojsonLayers);
-  return Utils.getBoundsForFeature(geojson);
+  const geojson = mergeAllDataLayers(geojsonLayers);
+  return getBoundsForFeature(geojson);
 }
 
 module.exports = {

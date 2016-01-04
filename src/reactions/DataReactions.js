@@ -2,8 +2,7 @@
 
 import State from '../state/AppState';
 import api from '../api/api';
-import { getAllBounds,
-    getBoundsForFeature, mergeAllDataLayers } from '../components/utils';
+import { mergeAllDataLayers } from '../components/utils';
 
 import topojson from 'topojson';
 
@@ -12,7 +11,6 @@ State
     const state = State.get();
     const url = state.dataUrl;
     api.getDataUrl(url, function(data) {
-      console.log(data);
       // TODO support geojson + topojson
 
       // Topojson support:

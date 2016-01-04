@@ -1,22 +1,21 @@
 'use strict';
 
 import State from '../state/AppState';
-import api from '../api/api';
-import { getAllBounds, getBoundsForFeature } from '../components/utils';
+import { getBoundsForFeature } from '../components/utils';
 
-import { sample } from 'turf';
 import geojsonExtent from 'geojson-extent';
 
 State
   .on('map:setBounds', function(){
     const data = State.get().activeData.filtered;
     const extent = geojsonExtent(data);
-    State.get().set({
-      mapProps: {
-        bounds:  [
+    const bounds = [
               [extent[1], extent[0]],
               [extent[3], extent[2]]
             ]
+    State.get().set({
+      mapProps: {
+        bounds: bounds
       }
     });
   })

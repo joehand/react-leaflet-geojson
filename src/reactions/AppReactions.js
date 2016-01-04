@@ -8,7 +8,7 @@ require('./DataReactions');
 /// Any other general actions
 
 State
-  .on('app:start', function (data) {
+  .on('app:start', function () {
     State.get().set({status: 'loading'});
     State.trigger('data:fetch');
   })
@@ -16,7 +16,7 @@ State
 
 
 State
-  .on('app:ready', function (data) {
+  .on('app:ready', function () {
     State.get().set({status: 'ready'});
   })
 ;

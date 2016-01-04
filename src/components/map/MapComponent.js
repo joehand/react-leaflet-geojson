@@ -33,7 +33,7 @@ class MapComponent extends React.Component {
       opacity: 1,
       weight: 1,
       fillColor: 'rgb(86,221,84)',
-      fillOpacity: 0.4,
+      fillOpacity: 0.4
     };
 
     const activeData = this.props.data;

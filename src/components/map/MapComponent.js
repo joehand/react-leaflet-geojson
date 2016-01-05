@@ -53,21 +53,17 @@ class MapComponent extends React.Component {
   }
 
   render() {
-    const activeData = this.props.data;
-    const onEachFeature = this.onEachFeature;
-
     return (
       <Map id='map' ref='map'
         className='map-component'
-        zoomControl={false}
         {...this.props.mapProps}>
         <TileLayer
           {...this.props.mapTiles}
         />
         <GeoJsonUpdatable
-            data={activeData}
+            data={this.props.data}
             style={defaultStyle}
-            onEachFeature={(feature, layer) => onEachFeature(feature, layer)}
+            onEachFeature={(feature, layer) => this.onEachFeature(feature, layer)}
           />
         { this.props.mapControls.zoomControl ?
           <ZoomControl {...this.props.mapControls.zoomControl} />

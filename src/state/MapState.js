@@ -7,7 +7,8 @@ let mapState =  {
     minZoom:4,
     maxZoom:18,
     minZoomBounds:10,
-    maxZoomBounds:14
+    maxZoomBounds:14,
+    zoomControl: false // we will add it later
   },
   mapTiles: {
     id: 'joeahand.ok27om7m',

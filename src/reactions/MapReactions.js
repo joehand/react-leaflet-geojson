@@ -42,10 +42,7 @@ State
       layer.setStyle(layer.highlightStyle);
     }
 
-    state.mapProps.set({
-      bounds: getBoundsForFeature(feature),
-      boundsOptions: boundsOptions
-    });
+    State.trigger('map:setBounds', feature);
 
     //TODO: Let's not do this...
     let title = '';

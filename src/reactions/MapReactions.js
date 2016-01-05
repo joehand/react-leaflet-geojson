@@ -11,8 +11,17 @@ const boundsOptions = {
         }
 
 State
+  .on('map:start', function(inData){
+    const state = State.get();
+    // Copy defaults to active props (otherwise all overwritten)
+    state.set('mapProps', state.mapDefaults);
+  })
+;
+
+State
   .on('map:setBounds', function(inData){
-    const data = inData || State.get().activeData.filtered;
+    const state = State.get();
+    const data = inData || state.activeData.filtered;
     if ('features' in data && !data.features.length)
       return
     const extent = geojsonExtent(data);
@@ -20,11 +29,9 @@ State
               [extent[1], extent[0]],
               [extent[3], extent[2]]
             ]
-    State.get().set({
-      mapProps: {
-        bounds: bounds,
-        boundsOptions: boundsOptions
-      }
+    state.mapProps.set({
+      'bounds': bounds,
+      'boundsOptions': boundsOptions
     });
   })
 ;

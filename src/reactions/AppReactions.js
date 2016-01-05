@@ -10,6 +10,7 @@ require('./DataReactions');
 State
   .on('app:start', function () {
     State.get().set({status: 'loading'});
+    State.trigger('map:start');
     State.trigger('data:fetch');
   })
 ;

@@ -47,7 +47,7 @@ class MapComponent extends React.Component {
 
     //TODO: move this.
     // should call a State.trigger(map:resize) directly from layout
-    listener.on('update', function( newState ){
+    listener.on('update', function(){
       self.resizeMap();
     });
   }

@@ -12,10 +12,17 @@ class MainLayout extends React.Component {
   render() {
     let state = this.props.state;
     return (
-      <div className="layout-component">
+      <div className={
+          this.props.sidebarOpen ?
+          'sidebar-open layout-component'
+          : 'layout-component'
+          }
+        >
         <div className='header'>
           <h1>{state.pageTitle}</h1>
-          <SearchComponent />
+          { this.props.sidebarOpen ?
+            null: <SearchComponent />
+          }
         </div>
         { this.props.sidebarOpen ?
           <CurrentFeature feature={state.currentFeature} />

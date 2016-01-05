@@ -1,3 +1,5 @@
+@import "../common/mixins";
+
 
 .data-display {
     position: fixed;
@@ -5,10 +7,16 @@
     height:100%;
     right:0;
     top:0;
-    border:1px solid red;
-    z-index:5;
-    font-size:0.7em;
-    background:white;
-    overflow-y:scroll;
-    margin:0;
+    bottom:0;
+    overflow:scroll;
+
+    .data-display-inner {
+        z-index:5;
+        position: absolute;
+        bottom:0;
+        top:0;
+        background: #f4f4f4;
+        font-size:0.7em;
+        padding:10px;
+    }
 }

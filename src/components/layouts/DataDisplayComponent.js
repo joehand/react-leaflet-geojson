@@ -12,10 +12,12 @@ class DataDisplayComponent extends React.Component {
     }
     return (
       <div className="data-display">
-        {properties ?
-            <pre>{JSON.stringify(properties, null, 2) }</pre>
-            : null
-        }
+        <div className="data-display-inner">
+          {properties ?
+              <pre>{JSON.stringify(properties, null, 2) }</pre>
+              : null
+          }
+        </div>
       </div>
     );
   }

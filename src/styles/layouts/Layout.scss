@@ -1,10 +1,32 @@
+@import "../common/mixins";
 
 .layout-component {
     position: absolute;
-}
+    width:100%;
 
-.header {
-    z-index:3;
-    position: absolute;
-    border:1px solid red;
+    .header {
+        z-index:3;
+        position: absolute;
+        width:400px;
+        padding:10px 0;
+        background: #f4f4f4;
+        @include gmd-z-depth(3);
+
+        h1 {
+            margin:7px 10px;
+            font-size:1.75em;
+        }
+    }
+
+    &.sidebar-open {
+
+        .header {
+            width:66%;
+
+            h1 {
+                text-align: center;
+            }
+        }
+
+    }
 }

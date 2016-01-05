@@ -17,10 +17,13 @@ class AppComponent extends React.Component {
 
   render() {
     let state = State.get();
-    console.log(state);
 
     if (state.status == 'loading')
-      return <div>Loading...</div>;
+      return (
+        <div className="loading">
+          Loading...
+        </div>
+      );
 
     let sidebarOpen = false;
     if ('layout' in state && state.layout.sidebar == 'open') {

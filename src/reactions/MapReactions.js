@@ -44,7 +44,7 @@ State
 
     state.mapProps.set({
       bounds: getBoundsForFeature(feature),
-      boundsOptions: boundsOptions,
+      boundsOptions: boundsOptions
     });
 
     //TODO: Let's not do this...

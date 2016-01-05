@@ -2,28 +2,23 @@
 
 import Freezer from 'freezer-js';
 
-var state =  {
+import mapState from './MapState';
+
+// TODO: Does this work or do I need to worry about key collisions?
+let state =  Object.assign(mapState, {
   status: 'ready',
   route: '/',
   pageTitle: 'GeoJson React Leaflet Map',
   dataInfo: {
-    url: 'https://gist.githubusercontent.com/joehand/f12cd626e2a54a146c8c/raw/46d6aa619a4817d9047f886490c4368800d32eeb/ghana.topo.json',
+    url: 'https://gist.githubusercontent.com/joehand/f12cd626e2a54a146c8c/raw/c5400e62e8ce0421050b34b6f033f283870790be/ghana.topo.json',
     titleProp: 'section_B/B7_Settlement_Name_Community',
-    filterProp: 'section_B/B7_Settlement_Name_Community',
+    filterProp: 'section_B/B7_Settlement_Name_Community'
   },
-  mapDefaults: {
-    center:[0,0],
-    zoom:10,
-    minZoom:11,
-    maxZoom:15
-  },
-  mapTiles: {
-    id: 'joeahand.ok27om7m',
-    accessToken: 'pk.eyJ1Ijoiam9lYWhhbmQiLCJhIjoiaDd1MEJZQSJ9.fl3WTCt8MGNOSCGR_qqz7A',
-    url: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
-    attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  featuresVisited: [],
+  layout: {
+    sidebar: 'closed' // why does this need to be an object/array to listen to?
   }
-};
+});
 
 // Returns the freezer instance with the state.
-module.exports = new Freezer( state );
+export default new Freezer( state );

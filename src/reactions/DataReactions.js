@@ -22,7 +22,8 @@ State
 
       if ('sourceData' in state) {
           state.sourceData.set(url, data);
-      } else {
+      }
+      else {
           const obj = {}
           obj[url] = data
           state.set('sourceData', obj);
@@ -43,13 +44,13 @@ State
 ;
 
 State
-  .on('data:regexFilter', function(val){
+  .on('data:regexFilter', function(searchVal){
     const state = State.get()
-    const data = state.activeData.default;
+    const allData = state.activeData.default;
 
-    if (val) {
-      const regex = new RegExp(val, 'i');
-      const filteredData = data.features.filter(function(feature) {
+    if (searchVal) {
+      const regex = new RegExp(searchVal, 'i');
+      const filteredData = allData.features.filter(function(feature) {
 
         //TODO: Let's not do this...
         let searchText = ''; // Make sure it is string by adding
@@ -69,7 +70,7 @@ State
 
       let filtered = {
           features: filteredData,
-          type:data.type
+          type:allData.type
       }
 
       if (!filteredData.length) {
@@ -77,16 +78,19 @@ State
         state.set('pageTitle', 'No Results');
       }
       else if (filteredData.length == 1) {
-        State.trigger('clicked:feature', filteredData[0])
-      } else {
+        state.set('pageTitle', '1 Search Result'); //TODO: Use title
+        State.trigger('map:setBounds', filteredData[0])
+      }
+      else {
         const pageTitle = filteredData.length + ' Search Results';
         state.set('pageTitle', pageTitle);
       }
       state.activeData.set('filtered', filtered);
     }
     else {
+      // No Search - Show All Data
       state.set('pageTitle', 'Search...');
-      state.activeData.set('filtered', data);
+      state.activeData.set('filtered', allData);
     }
   })
 ;

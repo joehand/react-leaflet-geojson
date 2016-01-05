@@ -1,5 +1,16 @@
-.map-component {
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
+
+.sidebar-open {
+    .map-component {
+        width:66%;
+        height:100%;
+        position: absolute;
+    }
 }
+
+.sidebar-closed {
+    .map-component {
+        width:100%;
+        height:100%;
+    }
+}
+

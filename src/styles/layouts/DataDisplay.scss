@@ -1,0 +1,14 @@
+
+.data-display {
+    position: fixed;
+    width:34%;
+    height:100%;
+    right:0;
+    top:0;
+    border:1px solid red;
+    z-index:5;
+    font-size:0.7em;
+    background:white;
+    overflow-y:scroll;
+    margin:0;
+}

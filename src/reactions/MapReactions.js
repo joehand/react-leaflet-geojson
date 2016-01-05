@@ -5,10 +5,15 @@ import { getBoundsForFeature } from '../components/utils';
 
 import geojsonExtent from 'geojson-extent';
 
+const boundsOptions = {
+          minZoom: State.get().mapDefaults.minZoomBounds,
+          maxZoom: State.get().mapDefaults.maxZoomBounds
+        }
+
 State
-  .on('map:setBounds', function(){
-    const data = State.get().activeData.filtered;
-    if (!data.features.length)
+  .on('map:setBounds', function(inData){
+    const data = inData || State.get().activeData.filtered;
+    if ('features' in data && !data.features.length)
       return
     const extent = geojsonExtent(data);
     const bounds = [
@@ -17,24 +22,35 @@ State
             ]
     State.get().set({
       mapProps: {
-        bounds: bounds
+        bounds: bounds,
+        boundsOptions: boundsOptions
       }
     });
   })
 ;
 
 State
-  .on('clicked:feature', function(feature){
-    console.log(feature);
+  .on('clicked:feature', function(feature, layer){
+    const state = State.get()
 
-    State.get().mapProps.set({
-      bounds: getBoundsForFeature(feature)
+    if ('currentLayer' in state) {
+      const oldLayer = State.get().currentLayer;
+      oldLayer.setStyle(oldLayer.defaultOptions.style);
+      // TODO: should use oldLayer.resetStyle() but wasn't working.
+    }
+    if (layer){
+      layer.setStyle(layer.highlightStyle);
+    }
+
+    state.mapProps.set({
+      bounds: getBoundsForFeature(feature),
+      boundsOptions: boundsOptions,
     });
 
     //TODO: Let's not do this...
     let title = '';
-    if ('titleProp' in State.get().dataInfo) {
-      let propName = State.get().dataInfo.titleProp;
+    if ('titleProp' in state.dataInfo) {
+      let propName = state.dataInfo.titleProp;
       title = feature.properties[propName];
     }
     else if ('name' in feature.properties) {
@@ -49,7 +65,11 @@ State
     State.get().set({
       route : route,
       pageTitle : title,
-      currentFeature : feature
+      currentFeature : feature,
+      currentLayer: layer
     });
+
+    state.featuresVisited.push(route);
+    state.layout.set('sidebar', 'open');
   })
 ;

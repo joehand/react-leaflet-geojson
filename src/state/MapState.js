@@ -6,7 +6,6 @@ let mapState =  {
     zoom:10,
     minZoom:4,
     maxZoom:18,
-    minZoomBounds:10,
     maxZoomBounds:14,
     zoomControl: false // we will add it later
   },

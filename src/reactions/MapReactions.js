@@ -31,7 +31,8 @@ State
             ]
     state.mapProps.set({
       'bounds': bounds,
-      'boundsOptions': boundsOptions
+      // This is causing map to jump & tiles to flash
+      //'boundsOptions': boundsOptions
     });
   })
 ;

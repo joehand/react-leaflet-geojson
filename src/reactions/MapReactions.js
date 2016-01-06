@@ -6,7 +6,7 @@ import { getBoundsForFeature } from '../components/utils';
 import geojsonExtent from 'geojson-extent';
 
 // TODO: wtf! set this using the State.boundsoptions => map flashes and sucks.
-const boundsOptions = {maxZoom: 14};
+const boundsOptions = {maxZoom: 7};
 
 State
   .on('map:start', function(inData){

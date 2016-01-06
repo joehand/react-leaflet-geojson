@@ -10,9 +10,9 @@ let state =  Object.assign(mapState, {
   route: '/',
   pageTitle: 'GeoJson React Leaflet Map',
   dataInfo: {
-    url: 'https://raw.githubusercontent.com/wrobstory/vincent_map_data/master/or_counties.topo.json',
-    titleProp: 'COUNTY',
-    filterProp: 'COUNTY'
+    url: 'https://gist.githubusercontent.com/joehand/f12cd626e2a54a146c8c/raw/c5400e62e8ce0421050b34b6f033f283870790be/ghana.topo.json',
+    titleProp: 'section_B/B7_Settlement_Name_Community',
+    filterProp: 'section_B/B7_Settlement_Name_Community'
   },
   featuresVisited: [],
   layout: {

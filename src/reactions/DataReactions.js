@@ -15,7 +15,7 @@ State
 
       // Topojson support:
       // TODO: objects.myKey will change for topojson files
-      data = topojson.feature(data,data.objects['or_counties.geo']);
+      data = topojson.feature(data,data.objects.collection);
 
       // Geojson support:
       // data = data WHOA!

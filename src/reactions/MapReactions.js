@@ -1,7 +1,6 @@
 'use strict';
 
 import State from '../state/AppState';
-import { getBoundsForFeature } from '../components/utils';
 
 import geojsonExtent from 'geojson-extent';
 
@@ -9,7 +8,7 @@ import geojsonExtent from 'geojson-extent';
 const boundsOptions = {maxZoom: 14};
 
 State
-  .on('map:start', function(inData){
+  .on('map:start', function(){
     const state = State.get();
     // Copy defaults to active props (otherwise all overwritten)
     state.set('mapProps', state.mapDefaults);

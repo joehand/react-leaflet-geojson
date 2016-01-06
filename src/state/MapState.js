@@ -4,9 +4,11 @@ let mapState =  {
   mapDefaults: {
     center:[0,0],
     zoom:10,
-    minZoom:4,
+    minZoom:5,
     maxZoom:18,
-    maxZoomBounds:14,
+    boundsOptions : {
+      maxZoom:14
+    },
     zoomControl: false // we will add it later
   },
   mapTiles: {

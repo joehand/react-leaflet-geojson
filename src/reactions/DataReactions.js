@@ -45,6 +45,8 @@ State
 
 State
   .on('data:regexFilter', function(searchVal){
+    State.get().set('regexFilterVal', searchVal).now();
+
     const state = State.get()
     const allData = state.activeData.default;
 
@@ -79,7 +81,6 @@ State
       }
       else if (filteredData.length == 1) {
         state.set('pageTitle', '1 Search Result'); //TODO: Use title
-        State.trigger('map:setBounds', filteredData[0])
       }
       else {
         const pageTitle = filteredData.length + ' Search Results';

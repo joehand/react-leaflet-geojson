@@ -28,7 +28,10 @@ class MapComponent extends React.Component {
 
   onEachFeature(feature, layer) {
     layer.highlightStyle = highlightStyle;
-    layer.on('click', State.trigger.bind( State, 'clicked:feature', feature, layer));
+    layer.on('click', State.trigger.bind(
+        State, 'clicked:feature', this.refs.map.getLeafletElement(), feature, layer
+      )
+    );
   }
 
   resizeMap() {
@@ -36,20 +39,31 @@ class MapComponent extends React.Component {
     map.invalidateSize();
   }
 
+  triggerSetBounds() {
+    const map = this.refs.map.getLeafletElement();
+    State.trigger('map:setBounds', map);
+  }
+
   componentDidMount() {
-    State.trigger('map:setBounds');
+    this.triggerSetBounds();
   }
 
   componentWillMount() {
     const self = this;
     let state = State.get();
-    let listener = state.layout.getListener();
 
-    //TODO: move this.
-    // should call a State.trigger(map:resize) directly from layout
-    listener.on('update', function(){
+    //TODO: move this?
+    // ? call a State.trigger(map:resize) directly from layout
+    let listener_layout = state.layout.getListener();
+    listener_layout.on('update', function(){
       self.resizeMap();
     });
+
+    let listener_data = state.activeData.getListener();
+    listener_data.on('update', function(){
+      self.triggerSetBounds();
+    });
+
   }
 
   render() {
@@ -61,6 +75,7 @@ class MapComponent extends React.Component {
           {...this.props.mapTiles}
         />
         <GeoJsonUpdatable
+            ref='geojson'
             data={this.props.data}
             style={defaultStyle}
             onEachFeature={(feature, layer) => this.onEachFeature(feature, layer)}

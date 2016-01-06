@@ -11,7 +11,6 @@ class SearchComponent extends React.Component {
   filterData(event) {
     event.preventDefault();
     State.trigger('data:regexFilter',event.target.value);
-    State.trigger('map:setBounds'); //TODO: make listener on map for layer changes
   }
 
   render() {

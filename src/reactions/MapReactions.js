@@ -5,10 +5,8 @@ import { getBoundsForFeature } from '../components/utils';
 
 import geojsonExtent from 'geojson-extent';
 
-const boundsOptions = {
-          minZoom: State.get().mapDefaults.minZoomBounds,
-          maxZoom: State.get().mapDefaults.maxZoomBounds
-        }
+// TODO: wtf! set this using the State.boundsoptions => map flashes and sucks.
+const boundsOptions = {maxZoom: 14};
 
 State
   .on('map:start', function(inData){
@@ -19,26 +17,26 @@ State
 ;
 
 State
-  .on('map:setBounds', function(inData){
+  .on('map:setBounds', function(map, layer){
     const state = State.get();
-    const data = inData || state.activeData.filtered;
-    if ('features' in data && !data.features.length)
-      return
-    const extent = geojsonExtent(data);
-    const bounds = [
-              [extent[1], extent[0]],
-              [extent[3], extent[2]]
-            ]
-    state.mapProps.set({
-      'bounds': bounds,
-      // This is causing map to jump & tiles to flash
-      //'boundsOptions': boundsOptions
-    });
+    if (layer) {
+      map.fitBounds(layer.getBounds(), boundsOptions);
+    } else {
+      const data = state.activeData.filtered;
+      if ('features' in data && !data.features.length)
+        return
+      const extent = geojsonExtent(data);
+      const bounds = [
+                [extent[1], extent[0]],
+                [extent[3], extent[2]]
+              ]
+      map.fitBounds(bounds, boundsOptions);
+    }
   })
 ;
 
 State
-  .on('clicked:feature', function(feature, layer){
+  .on('clicked:feature', function(map, feature, layer){
     const state = State.get()
 
     if ('currentLayer' in state) {
@@ -50,7 +48,7 @@ State
       layer.setStyle(layer.highlightStyle);
     }
 
-    State.trigger('map:setBounds', feature);
+    State.trigger('map:setBounds', map, layer);
 
     //TODO: Let's not do this...
     let title = '';

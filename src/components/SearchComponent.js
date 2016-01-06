@@ -1,6 +1,8 @@
 'use strict';
 
 import React from 'react';
+import TextField from 'material-ui/lib/text-field';
+import FontIcon from 'material-ui/lib/font-icon';
 
 import State from '../state/AppState';
 
@@ -16,11 +18,12 @@ class SearchComponent extends React.Component {
   render() {
     return (
       <div className="search-component">
-          <input
+          <TextField
             type="text"
             className="form-control"
             onChange={ this.filterData.bind(this) }
-            placeholder="Search" />
+            placeholder="Search All"
+            style={{margin:'0 auto'}}/>
       </div>
     );
   }

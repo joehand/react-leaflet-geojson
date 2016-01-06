@@ -2,21 +2,5 @@
 
 
 .data-display {
-    position: fixed;
-    width:34%;
-    height:100%;
-    right:0;
-    top:0;
-    bottom:0;
-    overflow:scroll;
-
-    .data-display-inner {
-        z-index:5;
-        position: absolute;
-        bottom:0;
-        top:0;
-        background: #f4f4f4;
-        font-size:0.7em;
-        padding:10px;
-    }
+    //padding:0 10px 10px;
 }

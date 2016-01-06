@@ -16,7 +16,7 @@ let state =  Object.assign(mapState, {
   },
   featuresVisited: [],
   layout: {
-    sidebar: 'closed' // why does this need to be an object/array to listen to?
+    sidebar: 'open' // why does this need to be an object/array to listen to?
   }
 });
 

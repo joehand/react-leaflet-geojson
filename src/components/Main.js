@@ -3,8 +3,9 @@ require('styles/App.scss');
 
 import React from 'react';
 
-import MainLayout from 'components/layouts/MainLayout'
-import MapComponent from 'components/map/MapComponent'
+import MainLayout from 'components/layouts/MainLayout';
+import MapComponent from 'components/map/MapComponent';
+import SearchComponent from './SearchComponent';
 import State from '../state/AppState';
 
 class AppComponent extends React.Component {
@@ -34,14 +35,19 @@ class AppComponent extends React.Component {
 
     return (
       <div className={sidebarOpen ?
-          'main-container sidebar-open' : 'main-container sidebar-closed'}>
-        <MainLayout state={state} sidebarOpen={sidebarOpen}/>
-        <MapComponent
-          data={state.activeData.filtered}
-          mapProps={mapProps}
-          mapTiles={state.mapTiles}
-          mapControls={state.mapControls}
-        />
+          'main sidebar-open' : 'main sidebar-closed'}>
+        <div className='header'>
+          <h1>{state.pageTitle}</h1>
+        </div>
+        <div className="main-body">
+          <MainLayout state={state} sidebarOpen={sidebarOpen}/>
+          <MapComponent
+            data={state.activeData.filtered}
+            mapProps={mapProps}
+            mapTiles={state.mapTiles}
+            mapControls={state.mapControls}
+          />
+        </div>
       </div>
     );
   }

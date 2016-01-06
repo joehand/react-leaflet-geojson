@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import CurrentFeature from './DataDisplayComponent';
+import DataDisplay from './DataDisplayComponent';
 import SearchComponent from '../SearchComponent';
 
 require('styles/layouts/Layout.scss');
@@ -18,14 +18,13 @@ class MainLayout extends React.Component {
           : 'layout-component'
           }
         >
-        <div className='header'>
-          <h1>{state.pageTitle}</h1>
-          { this.props.sidebarOpen ?
-            null: <SearchComponent />
-          }
-        </div>
+        { state.currentFeature ?
+          null
+          : <SearchComponent />
+        }
         { this.props.sidebarOpen ?
-          <CurrentFeature feature={state.currentFeature} />
+          <DataDisplay
+            currentFeature={state.currentFeature} />
           : null
         }
       </div>

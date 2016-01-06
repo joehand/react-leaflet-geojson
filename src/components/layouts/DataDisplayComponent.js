@@ -2,21 +2,20 @@
 
 import React from 'react';
 
+import SettlementData from './SettlementDataComponent'
+
 require('styles/layouts/DataDisplay.scss');
 
 class DataDisplayComponent extends React.Component {
   render() {
-    let properties;
-    if ('feature' in this.props) {
-        properties = this.props.feature.properties;
-    }
+    //TODO Show current selected feature vs general data (e.g. search results)
+    let properties = this.props.currentFeature.properties;
     return (
       <div className="data-display">
         <div className="data-display-inner">
           {properties ?
-              <pre>{JSON.stringify(properties, null, 2) }</pre>
-              : null
-          }
+            <SettlementData {...properties} />
+          : null }
         </div>
       </div>
     );
@@ -26,6 +25,10 @@ class DataDisplayComponent extends React.Component {
 DataDisplayComponent.displayName = 'DataDisplay';
 
 // DataDisplayComponent.propTypes = {};
-// DataDisplayComponent.defaultProps = {};
+DataDisplayComponent.defaultProps = {
+  currentFeature: {
+    properties: null
+  }
+};
 
 export default DataDisplayComponent;

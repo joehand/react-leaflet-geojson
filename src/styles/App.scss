@@ -1,3 +1,4 @@
+@import "./common/mixins";
 
 /* Base Application Styles */
 body {
@@ -5,10 +6,58 @@ body {
 }
 
 // Required for Leaflet Map Sizing
-html, body, #app, .main-container {
+html, body, #app, .main {
     height: 100%;
     width: 100%;
 }
+
+.main {
+  .header {
+    position: absolute;
+    width:67%;
+    z-index:1;
+    right:0;
+    margin-top:10px;
+
+    h1 {
+        text-align: center;
+        padding:10px;
+        margin:0 auto;
+        max-width:500px;
+        background: #f4f4f4;
+        @include gmd-z-depth(2);
+    }
+  }
+
+  .main-body {
+    display:flex;
+    flex-direction: row;
+    width:100%;
+    height:100%;
+
+    .layout-component {
+      flex: 0 0 33%;
+      //width:33%;
+      height:100%;
+      position: relative;
+      overflow-y:scroll;
+      padding:0 10px 10px;
+
+      .data-display {
+        position: relative;
+        width:100%;
+      }
+    }
+
+    .map-component {
+      width:67%;
+      height:100%;
+      background: #f4f4f4;
+      @include gmd-z-depth(2);
+    }
+  }
+}
+
 
 .loading {
     width:100%;
@@ -17,8 +66,3 @@ html, body, #app, .main-container {
     justify-content:center;
     align-items: center;
 }
-
-.main-container {
-    position: absolute;
-}
-

@@ -71,6 +71,7 @@
     "async": "^1.5.1",
     "core-js": "^2.0.0",
     "freezer-js": "^0.9.4",
+    "geojson-extent": "^0.3.1",
     "geojson-merge": "^0.1.0",
     "leaflet": "^0.7.7",
     "material-ui": "^0.14.1",

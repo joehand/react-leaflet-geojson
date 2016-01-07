@@ -14,7 +14,7 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
 
-let ProfileDataCard = (props) => (
+let BoundaryDataCard = (props) => (
   <Card initiallyExpanded={props.initiallyExpanded}
     style={props.style}>
     <CardHeader {...props.cardHeader}
@@ -35,24 +35,24 @@ let ProfileDataCard = (props) => (
   </Card>
 );
 
-ProfileDataCard.displayName = 'Cards.Settlement.ProfileDataCard';
+BoundaryDataCard.displayName = 'Cards.Settlement.BoundaryDataCard';
 
-ProfileDataCard.propTypes = {
+BoundaryDataCard.propTypes = {
   initiallyExpanded: React.PropTypes.bool,
   showExpandableButton: React.PropTypes.bool,
   style: React.PropTypes.object,
   icon: React.PropTypes.string,
   cardHeader: React.PropTypes.object,
 };
-ProfileDataCard.defaultProps = {
+BoundaryDataCard.defaultProps = {
   initiallyExpanded: false,
   showExpandableButton: true,
   style: {},
-  icon: 'assignment',
+  icon: 'explore',
   cardHeader: {
-    title: 'Settlement Profile',
-    subtitle: 'Basic Information'
+    title: 'Settlement Boundary',
+    subtitle: 'Geographic Information'
   }
 };
 
-export default ProfileDataCard;
+export default BoundaryDataCard;

@@ -1,5 +1,5 @@
 
-# GeoJson React Map Template
+# SDI KYC Map & Verification Tool
 
 General starting point for a mapping application using geojson/topojson data and React.
 

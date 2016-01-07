@@ -3,6 +3,8 @@ require('styles/App.scss');
 
 import React from 'react';
 
+import CircularProgress from 'material-ui/lib/circular-progress';
+
 import CardBoxLayout from 'components/layouts/CardBoxLayout';
 import MapComponent from 'components/map/MapComponent';
 import SearchComponent from './SearchComponent';
@@ -22,7 +24,7 @@ class AppComponent extends React.Component {
     if (state.status == 'loading')
       return (
         <div className="loading">
-          Loading...
+          <CircularProgress mode="indeterminate" color={"black"} size={2} />
         </div>
       );
 

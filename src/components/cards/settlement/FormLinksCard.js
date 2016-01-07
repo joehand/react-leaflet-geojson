@@ -17,9 +17,7 @@ import CardText from 'material-ui/lib/card/card-text';
 let FormLinksCard = (props) => (
   <Card initiallyExpanded={props.initiallyExpanded}
     style={props.style}>
-    <CardHeader
-      title={props.title}
-      subtitle={props.subtitle}
+    <CardHeader {...props.cardHeader}
       avatar={
         <Avatar
           backgroundColor={Colors.deepOrange500}
@@ -53,16 +51,20 @@ FormLinksCard.displayName = 'Cards.Settlement.FormLinksCard';
 FormLinksCard.propTypes = {
   initiallyExpanded: React.PropTypes.bool,
   style: React.PropTypes.object,
-  title: React.PropTypes.string,
-  subtitle: React.PropTypes.string,
+  cardHeader: React.PropTypes.shape({
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string
+  }).isRequired,
   listSubheader: React.PropTypes.string,
-  formLinks: React.PropTypes.array
+  formLinks: React.PropTypes.array.isRequired
 };
 FormLinksCard.defaultProps = {
   initiallyExpanded: false,
   style: {},
-  title: 'Edit Settlement Data',
-  subtitle: 'Ona Platform',
+  cardHeader: {
+    title: 'Edit Settlement Data',
+    subtitle: 'Ona Platform'
+  },
   listSubheader: 'Open Forms to Edit on Ona',
   formLinks: [
     {

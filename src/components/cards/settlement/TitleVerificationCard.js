@@ -105,8 +105,14 @@ TitleVerificationCard.displayName = 'Cards.Settlement.TitleVerificationCard';
 TitleVerificationCard.propTypes = {
   initiallyExpanded: React.PropTypes.bool,
   style: React.PropTypes.object,
-  cardTitle: React.PropTypes.object,
-  cardHeader: React.PropTypes.object
+  cardTitle: React.PropTypes.shape({
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string
+  }).isRequired,
+  cardHeader: React.PropTypes.shape({
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string
+  }).isRequired
 };
 TitleVerificationCard.defaultProps = {
   initiallyExpanded: true,

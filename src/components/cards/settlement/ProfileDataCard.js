@@ -41,8 +41,11 @@ ProfileDataCard.propTypes = {
   initiallyExpanded: React.PropTypes.bool,
   showExpandableButton: React.PropTypes.bool,
   style: React.PropTypes.object,
-  icon: React.PropTypes.string,
-  cardHeader: React.PropTypes.object,
+  icon: React.PropTypes.string.isRequired,
+  cardHeader: React.PropTypes.shape({
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string
+  }).isRequired
 };
 ProfileDataCard.defaultProps = {
   initiallyExpanded: false,

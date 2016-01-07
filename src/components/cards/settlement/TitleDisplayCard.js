@@ -25,7 +25,10 @@ TitleDisplayCard.displayName = 'Cards.Settlement.TitleDisplayCard';
 TitleDisplayCard.propTypes = {
   initiallyExpanded: React.PropTypes.bool,
   style: React.PropTypes.object,
-  cardHeader: React.PropTypes.object,
+  cardHeader: React.PropTypes.shape({
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string
+  }).isRequired
 };
 TitleDisplayCard.defaultProps = {
   initiallyExpanded: true,

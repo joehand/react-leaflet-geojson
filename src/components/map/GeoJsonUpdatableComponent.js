@@ -7,9 +7,11 @@
 import React from 'react';
 import {GeoJson}  from 'react-leaflet';
 
+import State from '../../state/AppState';
+
 class GeoJsonUpdatable extends GeoJson {
-  componentWillReceiveProps(prevProps) {
-    if (prevProps.data !== this.props.data) {
+  componentWillUpdate(nextProps) {
+    if (nextProps.data !== this.props.data) {
       this.leafletElement.clearLayers();
     }
   }
@@ -18,6 +20,12 @@ class GeoJsonUpdatable extends GeoJson {
     if (prevProps.data !== this.props.data) {
       this.leafletElement.addData(this.props.data);
     }
+  }
+
+  componentWillUnmount() {
+    this.leafletElement.clearLayers();
+    const map = State.get().leafletElements.map;
+    map.removeLayer(this.leafletElement);
   }
 }
 

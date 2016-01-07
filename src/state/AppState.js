@@ -31,7 +31,8 @@ let state =  Object.assign(mapState, {
     activeFeatureLayer: {}, // Leaflet Layer for active feature
     activeDataLayer: {}, // Leaflet layer group for active geojson
     map: {} // Leaflet map element
-  }
+  },
+  showServices: false
 });
 
 // Returns the freezer instance with the state.

@@ -6,6 +6,7 @@ import BoundaryDataCard from '../cards/settlement/BoundaryDataCard';
 import FormLinksCard from '../cards/settlement/FormLinksCard';
 import ProfileDataCard from '../cards/settlement/ProfileDataCard';
 import TitleVerificationCard from '../cards/settlement/TitleVerificationCard';
+import ViewServicesCard from '../cards/settlement/ViewServicesCard';
 
 
 class SettlementCards extends React.Component {
@@ -29,6 +30,7 @@ class SettlementCards extends React.Component {
           style={this.props.cardStyle}
           cardTitle={{title:title, subtitle:subtitle}}
           cardHeader={{title:city, subtitle:country}}/>
+        <ViewServicesCard  style={this.props.cardStyle} />
         <ProfileDataCard style={this.props.cardStyle} />
         <BoundaryDataCard style={this.props.cardStyle} />
         <FormLinksCard style={this.props.cardStyle} />

@@ -82,3 +82,10 @@ State
   })
 ;
 
+State
+  .on('app:loadSettlementServices', function () {
+    console.info('loading services');
+    // These are kinda specific for now
+    State.trigger('data:fetchServicesData');
+  })
+;

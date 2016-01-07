@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
+import L from 'leaflet';
+import Colors from 'material-ui/lib/styles/colors';
 
 import GeoJsonUpdatable from './GeoJsonUpdatableComponent';
 import State from '../../state/AppState';
@@ -24,6 +26,16 @@ const highlightStyle = {
   fillOpacity: 0.65
 };
 
+const markerStyle = {
+  radius: 7,
+  fillColor: Colors.indigo500,
+  color: Colors.black,
+  weight: 1,
+  opacity: 1,
+  fillOpacity: 0.4
+};
+
+
 class MapComponent extends React.Component {
 
   onEachFeature(feature, layer) {
@@ -34,6 +46,7 @@ class MapComponent extends React.Component {
       )
     );
     if (feature.id === State.get().mapData.activeFeatureId) {
+      // zoom into active feature
       State.trigger('map:clickedFeature', feature, layer);
     }
   }
@@ -43,29 +56,15 @@ class MapComponent extends React.Component {
     map.invalidateSize();
   }
 
+  pointToLayer(feature, latlng) {
+    return new L.CircleMarker(latlng, markerStyle);
+  }
+
   componentDidMount() {
     const map = this.refs.map.getLeafletElement();
     State.get().leafletElements.set('map', map);
 
     State.trigger('map:fitBounds');
-  }
-
-  componentWillMount() {
-    const self = this;
-    let state = State.get();
-
-    // //TODO: move this?
-    // // ? call a State.trigger(map:resize) directly from layout
-    // let listener_layout = state.appLayout.getListener();
-    // listener_layout.on('update', function(){
-    //   self.resizeMap();
-    // });
-
-    // let listener_data = state.mapData.activeData.getListener();
-    // listener_data.on('update', function(){
-    //   self.triggerSetBounds();
-    // });
-
   }
 
   render() {
@@ -76,12 +75,20 @@ class MapComponent extends React.Component {
         <TileLayer
           {...this.props.mapTiles}
         />
-        <GeoJsonUpdatable
-            ref='geojson'
+        { (this.props.showServices) ?
+          <GeoJsonUpdatable
+            key='geojson_services'
             data={this.props.data}
-            style={defaultStyle}
-            onEachFeature={(feature, layer) => this.onEachFeature(feature, layer)}
-          />
+            pointToLayer={(feature, latlng) => this.pointToLayer(feature, latlng)}
+            />
+        :
+          <GeoJsonUpdatable
+              key='geojson'
+              data={this.props.data}
+              style={defaultStyle}
+              onEachFeature={(feature, layer) => this.onEachFeature(feature, layer)}
+            />
+        }
         { this.props.mapControls.zoomControl ?
           <ZoomControl {...this.props.mapControls.zoomControl} />
           : null

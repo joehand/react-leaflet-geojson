@@ -3,11 +3,11 @@ require('styles/App.scss');
 
 import React from 'react';
 
-import CircularProgress from 'material-ui/lib/circular-progress';
-
 import CardBoxLayout from 'components/layouts/CardBoxLayout';
+import LoadingComponent from 'components/LoadingComponent';
 import MapComponent from 'components/map/MapComponent';
 import State from '../state/AppState';
+
 
 class AppComponent extends React.Component {
 
@@ -35,9 +35,7 @@ class AppComponent extends React.Component {
 
     if (state.status == 'loading')
       return (
-        <div className="loading">
-          <CircularProgress mode="indeterminate" color={"black"} size={2} />
-        </div>
+        <LoadingComponent />
       );
 
     let sidebarOpen = false;
@@ -59,6 +57,7 @@ class AppComponent extends React.Component {
           }
           <div className="map-wrapper">
             <MapComponent
+              showServices={state.showServices}
               data={state.mapData.activeData}
               mapProps={state.mapProps}
               mapTiles={state.mapTiles}

@@ -6,7 +6,7 @@ import geojsonExtent from 'geojson-extent';
 import State from '../state/AppState';
 
 // TODO: wtf! set this using the State.boundsoptions => map flashes and sucks.
-const boundsOptions = {maxZoom: 14};
+const boundsOptionsDefault = {maxZoom: 14};
 
 State
   .on('map:start', function(){
@@ -17,8 +17,9 @@ State
 ;
 
 State
-  .on('map:fitBounds', function(){
+  .on('map:fitBounds', function(boundsOptions){
     const state = State.get();
+    const boundsOpts = boundsOptions || boundsOptionsDefault;
     const map = state.leafletElements.map;
     const activeId = state.mapData.activeFeatureId;
 
@@ -38,7 +39,7 @@ State
               [extent[1], extent[0]],
               [extent[3], extent[2]]
             ]
-    map.fitBounds(bounds, boundsOptions);
+    map.fitBounds(bounds, boundsOpts);
   })
 ;
 
@@ -51,12 +52,18 @@ State
       // bit of a hack TODO
       const oldLayer = State.get().leafletElements.activeFeatureLayer;
       oldLayer.setStyle(oldLayer.defaultOptions.style);
-      // TODO: should use oldLayer.resetStyle() but wasn't working.
-    }
-    if (layer){
-      layer.setStyle(layer.highlightStyle);
+      // TODO: should use oldLayer.res
     }
     state.leafletElements.set('activeFeatureLayer', layer);
+    State.trigger('map:setFeatureHighlight');
     State.trigger('app:setActiveFeature', feature.id);
+  })
+;
+
+State
+  .on('map:setFeatureHighlight', function(highlightStyle){
+    const layer = State.get().leafletElements.activeFeatureLayer;
+    const style = highlightStyle || layer.highlightStyle;
+    layer.setStyle(style);
   })
 ;

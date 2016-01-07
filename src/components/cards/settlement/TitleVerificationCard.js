@@ -23,6 +23,7 @@ let TitleVerificationCard = (props) => (
     <List expandable={true}>
       <Divider />
       <ListItem
+        key='profile'
         primaryText='Profile Data'
         secondaryText='Not Verified & Incomplete'
         disabled={true}
@@ -36,6 +37,7 @@ let TitleVerificationCard = (props) => (
         initiallyOpen={false}
         nestedItems={[
           <ListItem
+            key='prof_bound'
             primaryText="Profile & Boundary Match"
             leftAvatar={
               <Avatar
@@ -46,6 +48,7 @@ let TitleVerificationCard = (props) => (
             }
           />,
           <ListItem
+            key='profile_comm'
             primaryText="Community Verification"
             leftAvatar={
               <Avatar
@@ -56,6 +59,7 @@ let TitleVerificationCard = (props) => (
             }
           />,
           <ListItem
+            key='profile_form'
             primaryText="Form Incomplete"
             leftAvatar={
               <Avatar
@@ -69,6 +73,7 @@ let TitleVerificationCard = (props) => (
       >
       </ListItem>
       <ListItem
+        key='boundary_form'
         primaryText='Boundary Data'
         secondaryText='Data Available & Verified'
         disabled={true}
@@ -82,6 +87,7 @@ let TitleVerificationCard = (props) => (
       >
       </ListItem>
       <ListItem
+        key='services_form'
         disabled={true}
         leftAvatar={
           <Avatar

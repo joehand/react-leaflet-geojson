@@ -111,3 +111,23 @@ State
 ;
 
 
+State
+  .on('data:fetchServicesData', function(){
+    api.getLocalServicesData(function(data) {
+      const state = State.get();
+      const boundaryStyle = {
+        color: '#000',
+        opacity: 1,
+        weight: 1,
+        fillColor: '#2262CC',
+        fillOpacity: 0.05
+      };
+
+      state.set('showServices', true);
+      State.trigger('map:setFeatureHighlight', boundaryStyle);
+      state.mapData.set('activeData', data);
+      State.trigger('map:fitBounds',{maxZoom: 20, padding:[10,0]});
+    });
+  })
+;
+

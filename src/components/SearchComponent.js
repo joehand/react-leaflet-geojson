@@ -21,7 +21,6 @@ class SearchComponent extends React.Component {
     State.trigger('data:regexFilter',event.target.value);
   }
 
-
   render() {
     return (
       <div>
@@ -30,7 +29,6 @@ class SearchComponent extends React.Component {
         >
             <TextField
               type="text"
-              className="form-control"
               onChange={ this.filterData.bind(this) }
               placeholder='Search...'
               underlineFocusStyle={{borderColor:Colors.blue500}}

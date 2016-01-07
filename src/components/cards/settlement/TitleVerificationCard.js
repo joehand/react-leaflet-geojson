@@ -10,9 +10,7 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Divider from 'material-ui/lib/divider';
 import Card from 'material-ui/lib/card/card';
 import CardTitle from 'material-ui/lib/card/card-title';
-import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
-import CardText from 'material-ui/lib/card/card-text';
 
 let TitleVerificationCard = (props) => (
   <Card initiallyExpanded={props.initiallyExpanded}
@@ -66,7 +64,7 @@ let TitleVerificationCard = (props) => (
                 backgroundColor={Colors.red500}
               />
             }
-          />,
+          />
         ]}
       >
       </ListItem>

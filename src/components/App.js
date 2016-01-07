@@ -7,7 +7,6 @@ import CircularProgress from 'material-ui/lib/circular-progress';
 
 import CardBoxLayout from 'components/layouts/CardBoxLayout';
 import MapComponent from 'components/map/MapComponent';
-import SearchComponent from './SearchComponent';
 import State from '../state/AppState';
 
 class AppComponent extends React.Component {
@@ -55,7 +54,7 @@ class AppComponent extends React.Component {
   }
 }
 
-AppComponent.defaultProps = {
-};
+//AppComponent.propTypes = {};
+//AppComponent.defaultProps = {};
 
 export default AppComponent;

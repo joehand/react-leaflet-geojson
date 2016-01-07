@@ -1,0 +1,14 @@
+@import "../common/mixins";
+
+.cardbox-layout {
+  flex: 0 0 33%;
+  //width:33%;
+  height:100%;
+  position: relative;
+  overflow-y:scroll;
+
+  .cards {
+    position: relative;
+    padding:15px;
+  }
+}

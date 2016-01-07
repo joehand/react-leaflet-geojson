@@ -16,7 +16,7 @@ import CardText from 'material-ui/lib/card/card-text';
 
 let TitleVerificationCard = (props) => (
   <Card initiallyExpanded={props.initiallyExpanded}
-    style={props.style}>
+    style={props.style} {...props}>
     <CardTitle {...props.cardTitle}
       actAsExpander={true} />
     <CardHeader {...props.cardHeader}
@@ -106,26 +106,11 @@ TitleVerificationCard.propTypes = {
   initiallyExpanded: React.PropTypes.bool,
   style: React.PropTypes.object,
   cardTitle: React.PropTypes.object,
-  cardHeader: React.PropTypes.object,
-  listSubheader: React.PropTypes.string,
-  formLinks: React.PropTypes.array
+  cardHeader: React.PropTypes.object
 };
 TitleVerificationCard.defaultProps = {
   initiallyExpanded: true,
-  style: {},
-  listSubheader: 'Open Forms to Edit on Ona',
-  formLinks: [
-    {
-        url: 'http://ona.io',
-        text: 'Profile Form',
-        icon: 'content_paste'
-    },
-    {
-        url: 'http://ona.io',
-        text: 'Boundary Form',
-        icon: 'map'
-    }
-  ]
+  style: {}
 };
 
 export default TitleVerificationCard;

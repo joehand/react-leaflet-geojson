@@ -3,7 +3,7 @@ require('styles/App.scss');
 
 import React from 'react';
 
-import MainLayout from 'components/layouts/MainLayout';
+import CardBoxLayout from 'components/layouts/CardBoxLayout';
 import MapComponent from 'components/map/MapComponent';
 import SearchComponent from './SearchComponent';
 import State from '../state/AppState';
@@ -40,7 +40,7 @@ class AppComponent extends React.Component {
           <h1>{state.pageTitle}</h1>
         </div>
         <div className="main-body">
-          <MainLayout state={state} sidebarOpen={sidebarOpen}/>
+          <CardBoxLayout state={state} sidebarOpen={sidebarOpen}/>
           <MapComponent
             data={state.activeData.filtered}
             mapProps={mapProps}

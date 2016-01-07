@@ -26,7 +26,7 @@ class SearchComponent extends React.Component {
     return (
       <div>
         <Paper
-          style={{margin:'10px', 'padding': '5px 15px'}}
+          style={{margin:'15px', 'padding': '5px 15px'}}
         >
             <TextField
               type="text"

@@ -8,7 +8,7 @@ import mapState from './MapState';
 let state =  Object.assign(mapState, {
   status: 'ready',
   route: '/',
-  pageTitle: 'GeoJson React Leaflet Map',
+  pageTitle: 'KYC Mapping & Verification Tool',
   dataInfo: {
     url: 'https://gist.githubusercontent.com/joehand/f12cd626e2a54a146c8c/raw/c5400e62e8ce0421050b34b6f033f283870790be/ghana.topo.json',
     titleProp: 'section_B/B7_Settlement_Name_Community',
@@ -17,7 +17,9 @@ let state =  Object.assign(mapState, {
   featuresVisited: [],
   layout: {
     sidebar: 'open' // why does this need to be an object/array to listen to?
-  }
+  },
+  currentFeature: {},
+  leaflet: {}
 });
 
 // Returns the freezer instance with the state.

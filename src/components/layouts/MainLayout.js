@@ -11,6 +11,7 @@ class MainLayout extends React.Component {
 
   render() {
     let state = this.props.state;
+    console.log(state);
     return (
       <div className={
           this.props.sidebarOpen ?
@@ -18,12 +19,13 @@ class MainLayout extends React.Component {
           : 'layout-component'
           }
         >
-        { state.currentFeature ?
+        { (Object.keys(state.currentFeature).length) ?
           null
           : <SearchComponent />
         }
         { this.props.sidebarOpen ?
           <DataDisplay
+            data={state.activeData.filtered}
             currentFeature={state.currentFeature} />
           : null
         }

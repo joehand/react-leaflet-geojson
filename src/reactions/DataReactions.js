@@ -39,6 +39,18 @@ State
     const layers = mergeAllDataLayers(state.sourceData);
     state.set('activeData', {'default':layers, 'filtered':layers});
 
+    //*********************//
+    // TEMPORARY (TODO)
+    // Hack to show only single settlement view
+    //*********************//
+    // const oldFadama = _.find(layers.features,
+    //   function (feature) {
+    //     return feature.properties._id === 4373407
+    // });
+    // State.get().set('currentFeature', oldFadama);
+
+    // ***** END TEMP ***** //
+
     State.trigger('app:ready'); //TODO move this out
   })
 ;

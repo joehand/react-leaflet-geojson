@@ -52,15 +52,19 @@ class AppComponent extends React.Component {
           <h1>{state.pageTitle}</h1>
         </div>
         <div className="main-body">
-          <CardBoxLayout
-            state={state}
-          />
-          <MapComponent
-            data={state.mapData.activeData}
-            mapProps={state.mapProps}
-            mapTiles={state.mapTiles}
-            mapControls={state.mapControls}
-          />
+          { sidebarOpen ?
+            <CardBoxLayout
+              state={state}
+            /> : null
+          }
+          <div className="map-wrapper">
+            <MapComponent
+              data={state.mapData.activeData}
+              mapProps={state.mapProps}
+              mapTiles={state.mapTiles}
+              mapControls={state.mapControls}
+            />
+          </div>
         </div>
       </div>
     );

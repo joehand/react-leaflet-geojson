@@ -11,21 +11,18 @@ require('styles/layouts/CardBoxLayout.scss');
 class CardBoxLayout extends React.Component {
   render() {
     const state = this.props.state;
-    const cardStyle = {
-      margin: '10px 0 15px 0'
-    };
     return (
       <div className='cardbox-layout'>
-        { (Object.keys(state.currentFeature).length) ?
+        { (Object.keys(state.mapData.activeFeature).length) ?
           <SettlementCards
-            cardStyle={cardStyle}
-            data={state.currentFeature.properties} />
+            cardStyle={this.props.cardStyle}
+            data={state.mapData.activeFeature.properties} />
           :
           <div>
-            <SearchComponent cardStyle={cardStyle}/>
+            <SearchComponent cardStyle={this.props.cardStyle}/>
             <SettlementListCards
-              cardStyle={cardStyle}
-              data={state.activeData.filtered} />
+              cardStyle={this.props.cardStyle}
+              data={state.mapData.activeData} />
           </div>
         }
       </div>
@@ -36,7 +33,13 @@ class CardBoxLayout extends React.Component {
 
 CardBoxLayout.displayName = 'layouts.CardBoxLayout';
 
-// CardBoxLayout.propTypes = {};
-// CardBoxLayout.defaultProps = {};
+CardBoxLayout.propTypes = {
+  cardStyle: React.PropTypes.object
+};
+CardBoxLayout.defaultProps = {
+  cardStyle: {
+    margin: '10px 0 15px 0'
+  }
+};
 
 export default CardBoxLayout;

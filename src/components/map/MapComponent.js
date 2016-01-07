@@ -28,41 +28,43 @@ class MapComponent extends React.Component {
 
   onEachFeature(feature, layer) {
     layer.highlightStyle = highlightStyle;
+    layer._leaflet_id = feature.id;
     layer.on('click', State.trigger.bind(
-        State, 'clicked:feature', this.refs.map.getLeafletElement(), feature, layer
+        State, 'map:clickedFeature', feature, layer
       )
     );
+    if (feature.id === State.get().mapData.activeFeatureId) {
+      State.trigger('map:clickedFeature', feature, layer);
+    }
   }
 
   resizeMap() {
-    let map = this.refs.map.getLeafletElement();
+    const map = this.refs.map.getLeafletElement();
     map.invalidateSize();
   }
 
-  triggerSetBounds() {
-    const map = this.refs.map.getLeafletElement();
-    State.trigger('map:setBounds', map);
-  }
-
   componentDidMount() {
-    this.triggerSetBounds();
+    const map = this.refs.map.getLeafletElement();
+    State.get().leafletElements.set('map', map);
+
+    State.trigger('map:fitBounds');
   }
 
   componentWillMount() {
     const self = this;
     let state = State.get();
 
-    //TODO: move this?
-    // ? call a State.trigger(map:resize) directly from layout
-    let listener_layout = state.layout.getListener();
-    listener_layout.on('update', function(){
-      self.resizeMap();
-    });
+    // //TODO: move this?
+    // // ? call a State.trigger(map:resize) directly from layout
+    // let listener_layout = state.appLayout.getListener();
+    // listener_layout.on('update', function(){
+    //   self.resizeMap();
+    // });
 
-    let listener_data = state.activeData.getListener();
-    listener_data.on('update', function(){
-      self.triggerSetBounds();
-    });
+    // let listener_data = state.mapData.activeData.getListener();
+    // listener_data.on('update', function(){
+    //   self.triggerSetBounds();
+    // });
 
   }
 
@@ -91,7 +93,19 @@ class MapComponent extends React.Component {
 
 MapComponent.displayName = 'MapComponent';
 
-// MapComponent.propTypes = {};
-// MapComponent.defaultProps = {};
+MapComponent.propTypes = {
+  mapProps: React.PropTypes.object,
+  mapTiles: React.PropTypes.object,
+  mapControls:  React.PropTypes.object,
+  data: React.PropTypes.object
+};
+
+MapComponent.defaultProps = {
+  mapProps: {
+    center:[0,0],
+    zoom:3,
+    zoomControl: false
+  }
+};
 
 export default MapComponent;

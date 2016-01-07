@@ -11,14 +11,27 @@ import State from '../state/AppState';
 
 class AppComponent extends React.Component {
 
+  componentWillMount () {
+    // Set init map props
+    const state = State.get()
+    const mapProps = state.mapProps || state.mapPropsDefault;
+    state.set('mapProps', mapProps);
+  }
+
   componentDidMount () {
     // Everytime that the state is updated the app will re-render.
     // A real data driven app.
     State.on('update', () => this.forceUpdate() );
+
+    let listener_data = State.get().mapData.getListener();
+    listener_data.on('update', function(){
+      State.trigger('app:updateDataView');
+    });
   }
 
   render() {
-    let state = State.get();
+    const state = State.get();
+    console.log(state);
 
     if (state.status == 'loading')
       return (
@@ -28,11 +41,9 @@ class AppComponent extends React.Component {
       );
 
     let sidebarOpen = false;
-    if ('layout' in state && state.layout.sidebar == 'open') {
+    if (state.appLayout.sidebar == 'open') {
       sidebarOpen = true;
     }
-
-    const mapProps = state.mapProps || state.mapDefaults;
 
     return (
       <div className={sidebarOpen ?
@@ -41,10 +52,12 @@ class AppComponent extends React.Component {
           <h1>{state.pageTitle}</h1>
         </div>
         <div className="main-body">
-          <CardBoxLayout state={state} sidebarOpen={sidebarOpen}/>
+          <CardBoxLayout
+            state={state}
+          />
           <MapComponent
-            data={state.activeData.filtered}
-            mapProps={mapProps}
+            data={state.mapData.activeData}
+            mapProps={state.mapProps}
             mapTiles={state.mapTiles}
             mapControls={state.mapControls}
           />

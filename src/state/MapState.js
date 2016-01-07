@@ -1,15 +1,14 @@
 'use strict';
 
 let mapState =  {
-  mapDefaults: {
-    center:[0,0],
-    zoom:10,
+  mapProps: {}, // active map props
+  mapPropsDefault: { // passed as initial map props
     minZoom:5,
     maxZoom:18,
     boundsOptions : {
       maxZoom:14
     },
-    zoomControl: false // we will add it later
+    zoomControl: false // moving position
   },
   mapTiles: {
     id: 'joeahand.ok27om7m',
@@ -19,7 +18,7 @@ let mapState =  {
   },
   mapControls: {
     zoomControl: {
-      position: 'bottomleft'
+      position: 'bottomright'
     }
   }
 };

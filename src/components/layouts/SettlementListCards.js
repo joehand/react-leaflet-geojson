@@ -9,7 +9,7 @@ import TitleDisplayCard from '../cards/settlement/TitleDisplayCard';
 class SettlementListCards extends React.Component {
 
   setActive(feature) {
-    State.get().set('currentFeature', feature);
+    State.get().mapData.set('activeFeatureId', feature.id);
   }
 
   render() {

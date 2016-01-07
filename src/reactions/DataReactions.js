@@ -7,28 +7,41 @@ import { mergeAllDataLayers } from '../components/utils';
 import topojson from 'topojson';
 
 State
+  .on('data:ready', function(){
+    State.trigger('app:ready');
+  })
+;
+
+State
   .on('data:fetch', function(){
     const state = State.get();
-    const url = state.dataInfo.url;
+    const dataInfo = state.dataInfo;
+    const url = dataInfo.url;
     api.getDataUrl(url, function(data) {
       // TODO support geojson + topojson
-
       // Topojson support:
-      // TODO: objects.myKey will change for topojson files
-      data = topojson.feature(data,data.objects.collection);
-
+      data = topojson.feature(data,data.objects[dataInfo.topojsonKey]);
       // Geojson support:
       // data = data WHOA!
 
-      if ('sourceData' in state) {
-          state.sourceData.set(url, data);
+      if (!('id' in data.features[0])) {
+        // add ids
+        if ('idProp' in dataInfo) {
+          // TODO: this slows things down quite a bit.
+          let features = data.features.map(function(feature, i) {
+            feature.id = feature.properties._id;
+            return feature
+          });
+          data.features = features;
+        }
+        else {
+          console.error('Need to set ID property in MapState.dataInfo');
+        }
       }
-      else {
-          const obj = {}
-          obj[url] = data
-          state.set('sourceData', obj);
-      }
+
+      state.mapData.dataSources.set(url, data);
       State.trigger('data:combineLayes');
+      State.trigger('data:ready');
     });
   })
 ;
@@ -36,22 +49,10 @@ State
 State
   .on('data:combineLayes', function(){
     const state = State.get()
-    const layers = mergeAllDataLayers(state.sourceData);
-    state.set('activeData', {'default':layers, 'filtered':layers});
-
-    //*********************//
-    // TEMPORARY (TODO)
-    // Hack to show only single settlement view
-    //*********************//
-    // const oldFadama = _.find(layers.features,
-    //   function (feature) {
-    //     return feature.properties._id === 4373407
-    // });
-    // State.get().set('currentFeature', oldFadama);
-
-    // ***** END TEMP ***** //
-
-    State.trigger('app:ready'); //TODO move this out
+    const allData = mergeAllDataLayers(state.mapData.dataSources);
+    state.mapData.pivot()
+      .defaultData.set(allData)
+      .activeData.set(allData);
   })
 ;
 
@@ -60,7 +61,7 @@ State
     State.get().set('regexFilterVal', searchVal).now();
 
     const state = State.get()
-    const allData = state.activeData.default;
+    const allData = state.mapData.defaultData;
 
     if (searchVal) {
       const regex = new RegExp(searchVal, 'i');
@@ -93,17 +94,18 @@ State
       }
       else if (filteredData.length == 1) {
         state.set('pageTitle', '1 Search Result'); //TODO: Use title
+        state.mapData.set('activeFeatureId', filteredData[0].id)
       }
       else {
         const pageTitle = filteredData.length + ' Search Results';
         state.set('pageTitle', pageTitle);
       }
-      state.activeData.set('filtered', filtered);
+      state.mapData.set('activeData', filtered);
     }
     else {
       // No Search - Show All Data
       state.set('pageTitle', 'Search...');
-      state.activeData.set('filtered', allData);
+      state.mapData.set('activeData', allData);
     }
   })
 ;

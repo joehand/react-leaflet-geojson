@@ -22,10 +22,8 @@ let BoundaryDataCard = (props) => (
       showExpandableButton={props.showExpandableButton}
       actAsExpander={true} />
     <CardText expandable={true}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+      This box will show the verification details for the boundary form.
+      It can also display some other information about the data.
     </CardText>
   </Card>
 );

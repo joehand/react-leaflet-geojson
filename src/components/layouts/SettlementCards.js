@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import AllServicesCard from '../cards/settlement/AllServicesCard';
 import BoundaryDataCard from '../cards/settlement/BoundaryDataCard';
 import FormLinksCard from '../cards/settlement/FormLinksCard';
 import ProfileDataCard from '../cards/settlement/ProfileDataCard';
@@ -35,6 +36,7 @@ class SettlementCards extends React.Component {
     if (props._id === 4373407 || props._id === 1191715)  {
       demoSettlement = true;
     }
+    console.log(this.props.data);
 
     return (
       <div className='settlement-cards cards'>
@@ -53,13 +55,19 @@ class SettlementCards extends React.Component {
           />
         : null
         }
+        { (demoSettlement && this.props.showServices )  ?
+          <AllServicesCard
+            data={this.props.allServiceData}
+            style={this.props.cardStyle} />
+        :
+          <ViewServicesCard style={this.props.cardStyle} />
+        }
         <TitleVerificationCard
           style={this.props.cardStyle}
           cardTitle={{title:title, subtitle:subtitle}}
           cardHeader={{title:city, subtitle:country}}/>
         { demoSettlement ?
           <div>
-            <ViewServicesCard style={this.props.cardStyle} />
             <ProfileDataCard style={this.props.cardStyle} />
           </div>
         : null

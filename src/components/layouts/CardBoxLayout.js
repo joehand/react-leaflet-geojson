@@ -17,6 +17,8 @@ class CardBoxLayout extends React.Component {
           <SettlementCards
             cardStyle={this.props.cardStyle}
             data={state.mapData.activeFeature.properties}
+            showServices={(state.showServices)}
+            allServiceData={state.mapData.activeData.features}
             serviceData={state.activeServiceFeature} />
           :
           <div>

@@ -33,7 +33,8 @@ const markerTypeStyles = {
     fillColor: Colors.deepOrange500,
   },
   'streelight' : {
-    fillColor: Colors.teal900,
+    //fillColor: Colors.teal900,
+    weight:1
   },
   'water_point' : {
     fillColor: Colors.blue500,

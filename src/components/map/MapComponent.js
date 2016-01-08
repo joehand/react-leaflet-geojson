@@ -6,6 +6,7 @@ import L from 'leaflet';
 import Colors from 'material-ui/lib/styles/colors';
 
 import GeoJsonUpdatable from './GeoJsonUpdatableComponent';
+import ServicesLayer from './ServicesLayer';
 import State from '../../state/AppState';
 
 require('styles/map/Map.scss');
@@ -34,15 +35,6 @@ const focusBoundaryStyle = {
   fillOpacity: 0.15
 };
 
-const markerStyle = {
-  radius: 7,
-  fillColor: Colors.red500,
-  color: Colors.black,
-  weight: 1,
-  opacity: 1,
-  fillOpacity: 1
-};
-
 
 class MapComponent extends React.Component {
 
@@ -62,20 +54,6 @@ class MapComponent extends React.Component {
   resizeMap() {
     const map = this.refs.map.getLeafletElement();
     map.invalidateSize();
-  }
-
-  servicesPointToLayer(feature, latlng) {
-    return new L.CircleMarker(latlng, markerStyle);
-  }
-
-  servicesOnEachFeature(feature, layer) {
-    layer.on('click', State.trigger.bind(
-          State, 'map:clickedService', feature, layer
-        )
-      );
-    const popupOptions = {maxWidth: 200};
-    layer.bindPopup("<b>Service Type:</b> " + feature.properties['section_C/C1_Service_Type'] +
-                    "<br><b>Status: </b>" + feature.properties['section_D/D3_Service_Status'] ,popupOptions);
   }
 
   componentDidMount() {
@@ -108,12 +86,10 @@ class MapComponent extends React.Component {
             />
         }
         { (this.props.showServices) ?
-          <GeoJsonUpdatable
+          <ServicesLayer
             key='geojson_services'
             data={this.props.data}
-            pointToLayer={(feature, latlng) => this.servicesPointToLayer(feature, latlng)}
-            onEachFeature={(feature, layer) => this.servicesOnEachFeature(feature, layer)}
-            />
+          />
           : null
         }
         { this.props.mapControls.zoomControl ?
@@ -125,7 +101,7 @@ class MapComponent extends React.Component {
   }
 }
 
-MapComponent.displayName = 'MapComponent';
+MapComponent.displayName = 'Map.MapComponent';
 
 MapComponent.propTypes = {
   mapProps: React.PropTypes.object,

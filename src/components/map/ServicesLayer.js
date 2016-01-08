@@ -8,25 +8,37 @@ import State from '../../state/AppState';
 
 const markerBaseStyle = {
   radius: 7,
-  fillColor: Colors.red500,
-  color: Colors.black,
+  fillColor: Colors.blueGrey500,
+  color: Colors.blueGrey500,
   weight: 1,
   opacity: 1,
-  fillOpacity: 1
+  fillOpacity: 0.75
 };
 
 const markerWorkingStyle = {
-  fillColor: Colors.green500,
-  fillOpacity: 0.75
+  color: Colors.green500,
+  weight: 1,
 };
 
 const markerBrokenStyle = {
-  fillColor: Colors.red500,
-  fillOpacity: 0.75
+  color: Colors.red500,
+  weight: 2
 };
 
 const serviceWorkingKey = 'section_D/D3_Service_Status';
 const serviceTypeKey = 'section_C/C1_Service_Type';
+
+const markerTypeStyles = {
+  'toilet' : {
+    fillColor: Colors.deepOrange500,
+  },
+  'streelight' : {
+    fillColor: Colors.teal900,
+  },
+  'water_point' : {
+    fillColor: Colors.blue500,
+  }
+}
 
 function pointToLayer(feature, latlng) {
   let marker = new L.CircleMarker(latlng, markerBaseStyle);
@@ -37,6 +49,9 @@ function pointToLayer(feature, latlng) {
   else {
     marker.setStyle(markerBrokenStyle);
   }
+
+  const serviceType = feature.properties[serviceTypeKey];
+  marker.setStyle(markerTypeStyles[serviceType]);
 
   return marker;
 }

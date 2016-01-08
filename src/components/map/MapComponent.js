@@ -26,13 +26,21 @@ const highlightStyle = {
   fillOpacity: 0.65
 };
 
+const focusBoundaryStyle = {
+  color: Colors.deepOrangeA700,
+  opacity: 1,
+  weight: 1,
+  fillColor: Colors.blueGrey900,
+  fillOpacity: 0.15
+};
+
 const markerStyle = {
   radius: 7,
-  fillColor: Colors.indigo500,
+  fillColor: Colors.red500,
   color: Colors.black,
   weight: 1,
   opacity: 1,
-  fillOpacity: 0.4
+  fillOpacity: 1
 };
 
 
@@ -56,8 +64,18 @@ class MapComponent extends React.Component {
     map.invalidateSize();
   }
 
-  pointToLayer(feature, latlng) {
+  servicesPointToLayer(feature, latlng) {
     return new L.CircleMarker(latlng, markerStyle);
+  }
+
+  servicesOnEachFeature(feature, layer) {
+    layer.on('click', State.trigger.bind(
+          State, 'map:clickedService', feature, layer
+        )
+      );
+    const popupOptions = {maxWidth: 200};
+    layer.bindPopup("<b>Service Type:</b> " + feature.properties['section_C/C1_Service_Type'] +
+                    "<br><b>Status: </b>" + feature.properties['section_D/D3_Service_Status'] ,popupOptions);
   }
 
   componentDidMount() {
@@ -77,9 +95,9 @@ class MapComponent extends React.Component {
         />
         { (this.props.showServices) ?
           <GeoJsonUpdatable
-            key='geojson_services'
-            data={this.props.data}
-            pointToLayer={(feature, latlng) => this.pointToLayer(feature, latlng)}
+            key='geojson_boundary'
+            data={this.props.activeFeature}
+            style={focusBoundaryStyle}
             />
         :
           <GeoJsonUpdatable
@@ -88,6 +106,15 @@ class MapComponent extends React.Component {
               style={defaultStyle}
               onEachFeature={(feature, layer) => this.onEachFeature(feature, layer)}
             />
+        }
+        { (this.props.showServices) ?
+          <GeoJsonUpdatable
+            key='geojson_services'
+            data={this.props.data}
+            pointToLayer={(feature, latlng) => this.servicesPointToLayer(feature, latlng)}
+            onEachFeature={(feature, layer) => this.servicesOnEachFeature(feature, layer)}
+            />
+          : null
         }
         { this.props.mapControls.zoomControl ?
           <ZoomControl {...this.props.mapControls.zoomControl} />

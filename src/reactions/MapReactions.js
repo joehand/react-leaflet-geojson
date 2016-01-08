@@ -67,3 +67,11 @@ State
     layer.setStyle(style);
   })
 ;
+
+State
+  .on('map:clickedService', function(feature, layer){
+    // Updates styles, sets layer, and triggers set active feature
+    const state = State.get()
+    state.set('activeServiceFeature', feature);
+  })
+;

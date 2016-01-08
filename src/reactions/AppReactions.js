@@ -31,7 +31,7 @@ State
       if (mapData.activeFeature.id) {
         State.trigger('map:fitBounds');
       }
-      else {
+      else if (mapData.activeFeatureId !== mapData.activeFeature.id ) {
         State.trigger('app:setActiveFeature', mapData.activeFeatureId)
       }
     }
@@ -78,7 +78,10 @@ State
     state.featuresVisited.push(route);
     state.appLayout.set('sidebar', 'open');
 
-
+    // TODO: Temporary to demo
+    if (feature.id === 4373407) {
+      State.trigger('data:fetchActiveFeatureData');
+    }
   })
 ;
 

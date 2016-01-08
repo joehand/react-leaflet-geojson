@@ -112,21 +112,26 @@ State
 
 
 State
+  .on('data:fetchActiveFeatureData', function(){
+    api.getActiveFeatureData(function(data) {
+      const state = State.get();
+      console.log(data);
+      //state.mapData.activeFeatureId;
+      State.get().mapData.set({
+        'activeFeature' : data.features[0]
+      });
+    });
+  })
+;
+
+State
   .on('data:fetchServicesData', function(){
     api.getLocalServicesData(function(data) {
       const state = State.get();
-      const boundaryStyle = {
-        color: '#000',
-        opacity: 1,
-        weight: 1,
-        fillColor: '#2262CC',
-        fillOpacity: 0.05
-      };
 
       state.set('showServices', true);
-      State.trigger('map:setFeatureHighlight', boundaryStyle);
       state.mapData.set('activeData', data);
-      State.trigger('map:fitBounds',{maxZoom: 20, padding:[10,0]});
+      State.trigger('map:fitBounds',{maxZoom: 20, padding:[0,0]});
     });
   })
 ;

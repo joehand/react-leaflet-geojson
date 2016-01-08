@@ -21,7 +21,7 @@ let state =  Object.assign(mapState, {
     sidebar: 'open', // TODO: better approach for this?
   },
   mapData: {
-    activeFeatureId: 4373407, // -1 = no active feature
+    activeFeatureId: 4373407, // -1 = no active feature, 4373407 = old fadama
     activeFeature: {}, // GeoJson Object
     activeData: {}, // GeoJson Collection (filtered data, shown on map)
     defaultData: {}, // GeoJson Collection (full dataset)

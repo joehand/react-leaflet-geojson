@@ -13,10 +13,11 @@ class CardBoxLayout extends React.Component {
     const state = this.props.state;
     return (
       <div className='cardbox-layout'>
-        { (Object.keys(state.mapData.activeFeature).length) ?
+        { (state.mapData.activeFeatureId !== -1) ?
           <SettlementCards
             cardStyle={this.props.cardStyle}
-            data={state.mapData.activeFeature.properties} />
+            data={state.mapData.activeFeature.properties}
+            serviceData={state.activeServiceFeature} />
           :
           <div>
             <SearchComponent cardStyle={this.props.cardStyle}/>

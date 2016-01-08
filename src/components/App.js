@@ -58,6 +58,7 @@ class AppComponent extends React.Component {
           <div className="map-wrapper">
             <MapComponent
               showServices={state.showServices}
+              activeFeature={state.mapData.activeFeature}
               data={state.mapData.activeData}
               mapProps={state.mapProps}
               mapTiles={state.mapTiles}

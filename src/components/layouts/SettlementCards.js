@@ -60,7 +60,12 @@ class SettlementCards extends React.Component {
             data={this.props.allServiceData}
             style={this.props.cardStyle} />
         :
+         null
+        }
+        { demoSettlement  ?
           <ViewServicesCard style={this.props.cardStyle} />
+        :
+          null
         }
         <TitleVerificationCard
           style={this.props.cardStyle}

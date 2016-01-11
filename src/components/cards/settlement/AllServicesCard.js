@@ -36,8 +36,8 @@ class AllServicesCard extends React.Component {
               return (
                 <ListItem
                   key={category.name}
-                  style={{padding:'0px', margin:'-10px 0'}}
-                  primaryText={category.name}
+                  style={{padding:'0px', margin:'-10px 0', 'textTransform' : 'capitalize'}}
+                  primaryText={category.name.replace('_', ' ')}
                   rightAvatar={
                     <Avatar
                       color={Colors.white}

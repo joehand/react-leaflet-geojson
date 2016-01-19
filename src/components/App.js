@@ -34,14 +34,9 @@ class AppComponent extends React.Component {
     console.log(state);
 
     if (state.status == 'loading')
-      return (
-        <LoadingComponent />
-      );
+      return <LoadingComponent />;
 
-    let sidebarOpen = false;
-    if (state.appLayout.sidebar == 'open') {
-      sidebarOpen = true;
-    }
+    const sidebarOpen = (state.appLayout.sidebar == 'open');
 
     return (
       <div className={sidebarOpen ?

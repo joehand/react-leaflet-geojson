@@ -1,5 +1,5 @@
 
-# SDI KYC Map & Verification Tool
+# Map Tool
 
 General starting point for a mapping application using geojson/topojson data and React.
 
